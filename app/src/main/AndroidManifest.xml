@@ -20,7 +20,17 @@
         <service
             android:name=".MusicService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="com.framgia.musicservice.STOP" />
+                <action android:name="com.framgia.musicservice.NEXT" />
+                <action android:name="com.framgia.musicservice.PREVIOUS" />
+                <action android:name="com.framgia.musicservice.PAUSE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </service>
 
     </application>
 
