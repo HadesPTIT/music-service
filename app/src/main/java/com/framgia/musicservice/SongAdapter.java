@@ -1,7 +1,6 @@
 package com.framgia.musicservice;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,37 +14,47 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongViewHolder
 
     private LayoutInflater mInflater;
     private Context mContext;
-    private ArrayList<Song> mLists;
+    private ArrayList<Song> mSongs;
+    private OnSongClickListener mListener;
 
-    public SongAdapter(Context context, ArrayList<Song> lists) {
+    public SongAdapter(Context context, ArrayList<Song> songs) {
         mContext = context;
-        mLists = lists;
+        mSongs = songs;
         mInflater = LayoutInflater.from(mContext);
     }
 
     @NonNull
     @Override
     public SongViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.item_song,parent,false);
+        View view = mInflater.inflate(R.layout.item_song, parent, false);
         return new SongViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SongViewHolder holder, int position) {
-        Song song = mLists.get(position);
+    public void onBindViewHolder(@NonNull SongViewHolder holder, final int position) {
+        Song song = mSongs.get(position);
         holder.mName.setText(song.getName());
+        holder.mName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onSongClick(position);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return mLists.size();
+        return mSongs == null ? 0 : mSongs.size();
     }
 
-    class SongViewHolder extends RecyclerView.ViewHolder {
+    public void setListener(OnSongClickListener listener) {
+        mListener = listener;
+    }
 
+    static class SongViewHolder extends RecyclerView.ViewHolder {
         TextView mName;
 
-        SongViewHolder(View itemView) {
+        public SongViewHolder(View itemView) {
             super(itemView);
             mName = itemView.findViewById(R.id.text_name);
         }

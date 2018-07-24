@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">MusicService</string>
     <string name="msg_failed">Music Player Failed</string>
+
+    <string name="prefix_resource">android.resource://</string>
+    <string name="symbol_ss">/</string>
+
 </resources>
